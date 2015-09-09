@@ -4,6 +4,7 @@
   "description": "A react mixin and some utitiles to make publish/subscribe work smoothly with React.js",
   "main": "index.js",
   "scripts": {
+    "start": "wzrd example/index.js",
     "test": "node tests.js"
   },
   "repository": {
@@ -20,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/espeakers/react-pubsub-via-radio.js/issues"
   },
-  "homepage": "https://github.com/espeakers/react-pubsub-via-radio.js"
+  "homepage": "https://github.com/espeakers/react-pubsub-via-radio.js",
+  "dependencies": {
+    "radio": "^0.2.0"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "react": "^0.13.3",
+    "react-dd": "0.0.1",
+    "wzrd": "^1.3.1"
+  }
 }
