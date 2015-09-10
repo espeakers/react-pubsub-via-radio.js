@@ -1,7 +1,7 @@
 {
   "name": "react-pubsub-via-radio.js",
   "version": "1.0.0",
-  "description": "A react mixin and some utitiles to make publish/subscribe work smoothly with React.js",
+  "description": "Some mixins and utilities to make radio.js publish/subscribe work smoothly with react.js",
   "main": "index.js",
   "scripts": {
     "start": "wzrd example/index.js",
