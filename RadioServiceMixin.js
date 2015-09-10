@@ -6,7 +6,7 @@ module.exports = {
   mixins: [RadioMixin],
   getInitialState: function(){
     var state = {};
-    var s = this.__RadioServiceMixin_setup();
+    var s = this.__RadioService_setup();
     Object.keys(s).forEach(function(name){
       state[name] = {
         waiting: false,
@@ -16,17 +16,17 @@ module.exports = {
     });
     return state;
   },
-  RadioServiceMixin_setServiceState: function(name, new_state, onDone){
+  RadioService_setServiceState: function(name, new_state, onDone){
     var state = {};
     state[name] = new_state;
     this.setState(state, onDone);
   },
-  RadioMixin_setup: function(){
+  Radio_setup: function(){
     var self = this;
     var channels = {};
-    var updateState = this.RadioServiceMixin_setServiceState;
+    var updateState = this.RadioService_setServiceState;
 
-    var s = this.__RadioServiceMixin_setup();
+    var s = this.__RadioService_setup();
     var callEventListener = function(name, event_name){
       if(s[name] && s[name].on && s[name].on[event_name]){
         s[name].on[event_name].apply(self, toArray(arguments, 2));
@@ -68,14 +68,14 @@ module.exports = {
 
     return channels;
   },
-  __RadioServiceMixin_setup: function(){
-    if(!this.RadioServiceMixin_setup){
-      console.warn("RadioServiceMixin expects you to define a method called RadioServiceMixin_setup");
+  __RadioService_setup: function(){
+    if(!this.RadioService_setup){
+      console.warn("RadioServiceMixin expects you to define a method called RadioService_setup");
       return {};
     }
-    if(!this.__RadioServiceMixin_setup_cache){
-      this.__RadioServiceMixin_setup_cache = this.RadioServiceMixin_setup();
+    if(!this.__RadioService_setup_cache){
+      this.__RadioService_setup_cache = this.RadioService_setup();
     }
-    return this.__RadioServiceMixin_setup_cache;
+    return this.__RadioService_setup_cache;
   }
 };

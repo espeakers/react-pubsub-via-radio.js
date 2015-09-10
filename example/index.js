@@ -7,7 +7,7 @@ var RadioServiceMixin = require("../RadioServiceMixin");
 
 var SaveButton = dd.createClass({
   mixins: [RadioServiceMixin],
-  RadioServiceMixin_setup: function(){
+  RadioService_setup: function(){
     return {
       Save: {
         key: function(){
@@ -70,7 +70,7 @@ var List = dd.createClass({
   getInitialState: function(){
     return {items: []};
   },
-  RadioMixin_setup: function(){
+  Radio_setup: function(){
     return {
       Add_item: function(item){
         this.setState({items: this.state.items.concat([item])});
