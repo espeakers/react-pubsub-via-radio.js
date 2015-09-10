@@ -16,6 +16,13 @@
     "pubsub",
     "react"
   ],
+  "files": [
+    "index.js",
+    "radio.js",
+    "RadioMixin.js",
+    "RadioServiceMixin.js",
+    "service.js"
+  ],
   "author": "espeakers",
   "license": "MIT",
   "bugs": {
@@ -27,10 +34,11 @@
     "to-array": "^0.1.4"
   },
   "devDependencies": {
-    "cuid": "^1.3.8",
     "browserify": "^11.0.1",
+    "cuid": "^1.3.8",
     "react": "^0.13.3",
     "react-dd": "0.0.1",
+    "tape": "^4.2.0",
     "wzrd": "^1.3.1"
   }
 }

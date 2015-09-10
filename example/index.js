@@ -1,97 +1,35 @@
 var dd = require("react-dd");
 var React = require("react");
-var radio = require("radio");
-var service = require("../service");
-var RadioMixin = require("../RadioMixin");
-var RadioServiceMixin = require("../RadioServiceMixin");
 
-var SaveButton = dd.createClass({
-  mixins: [RadioServiceMixin],
-  RadioService_setup: function(){
-    return {
-      Save: {
-        key: function(){
-          console.log("SaveButton: key", arguments);
-          return 1;
-        },
-        on: {
-          waiting: function(){
-            console.log("SaveButton: on waiting");
-          },
-          failed: function(error){
-            console.log("SaveButton: on failed", error);
-          },
-          succeeded: function(data){
-            console.log("SaveButton: on succeeded", data);
-          }
+var CountStream = require("./CountStream");
+var SaveButton = require("./SaveButton");
+
+require("./model");//requiring this so that it will get loaded
+
+var tabBtn = function(name, is_active, onClick){
+  if(!is_active){
+    return dd.a({
+        href: "#",
+        onClick: onClick,
+        style: {
+          display: "inline-block",
+          padding: 20
         }
-      }
-    };
-  },
-  __save: function(e){
-    e.preventDefault();
-    radio("Save").broadcast("something");
-  },
-  render: function(){
-    var s = this.state.Save;
-
-    return dd.div(null,
-      s.waiting
-        ? "Saving..."
-        : dd.button({onClick: this.__save}, "Save"),
-
-      s.data
-        ? dd.div(null, s.data)
-        : null,
-
-      s.error
-        ? dd.div({style: {color: "red"}}, "Error: ", s.error)
-        : null
+      },
+      name
     );
   }
-});
-
-var to_error_or_not_to_error = false;
-service("Save", function(data, callback){
-  setTimeout(function(){
-    if(to_error_or_not_to_error){
-      callback("error!");
-    }else{
-      callback(null, "done!");
-    }
-    to_error_or_not_to_error = !to_error_or_not_to_error;
-  }, 1000);
-}, function(){
-  return 1;
-});
-
-var List = dd.createClass({
-  mixins: [RadioMixin],
-  getInitialState: function(){
-    return {items: []};
-  },
-  Radio_setup: function(){
-    return {
-      Add_item: function(item){
-        this.setState({items: this.state.items.concat([item])});
-      }
-    };
-  },
-  render: function(){
-    var items = this.state.items;
-
-    return dd.div(null,
-      "List of items:",
-      dd.ul(null,
-        items.map(function(item, i){
-          return dd.li({key: i},
-            item
-          );
-        })
-      )
-    );
-  }
-});
+  return dd.span({style: {
+      display: "inline-block",
+      padding: 20,
+      border: "1px solid black",
+      borderBottom: "1px solid white",
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5
+    }},
+    name
+  );
+};
 
 var App = dd.createClass({
   getInitialState: function(){
@@ -105,25 +43,22 @@ var App = dd.createClass({
     var show_list = this.state.show_list;
 
     return dd.div(null,
-      SaveButton(),
-      dd.p(null,
-        dd.a({href: "#", onClick: this.__toggle},
-          show_list ? "hide" : "show"
-        )
+      dd.div({style: {margin: "20px 20px -1px 30px"}},
+        tabBtn("count stream", show_list, this.__toggle),
+        tabBtn("save btn", !show_list, this.__toggle)
       ),
-      show_list ? List() : null
+      dd.div({style: {
+          padding: 20,
+          margin: "0 20px 20px 20px",
+          border: "1px solid black",
+          borderRadius: 5
+        }},
+        show_list
+          ? CountStream()
+          : SaveButton()
+      )
     );
   }
 });
-
-radio("Add_item").subscribe(function(){
-  console.log("Add_item", arguments);
-});
-
-var count = 0;
-setInterval(function(){
-  count += 1;
-  radio("Add_item").broadcast(count);
-}, 1000);
 
 React.render(App(), document.body);
