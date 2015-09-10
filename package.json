@@ -23,14 +23,14 @@
   },
   "homepage": "https://github.com/espeakers/react-pubsub-via-radio.js",
   "dependencies": {
-    "radio": "^0.2.0"
+    "radio": "^0.2.0",
+    "to-array": "^0.1.4"
   },
   "devDependencies": {
     "cuid": "^1.3.8",
     "browserify": "^11.0.1",
     "react": "^0.13.3",
     "react-dd": "0.0.1",
-    "to-array": "^0.1.4",
     "wzrd": "^1.3.1"
   }
 }
