@@ -2,6 +2,10 @@ var radio = require("radio");
 var toArray = require("to-array");
 var RadioMixin = require("./RadioMixin");
 
+var callServiceKey = function(service){
+  return "RadioService_callService-key-" + service;
+};
+
 module.exports = {
   mixins: [RadioMixin],
   getInitialState: function(){
@@ -13,6 +17,7 @@ module.exports = {
         data: null,
         error: null
       };
+      state[callServiceKey(name)] = null;
     });
     return state;
   },
@@ -40,6 +45,9 @@ module.exports = {
         return;
       }
       var isMe = function(key){
+        if(settings.key === "callService"){
+          return self.state[callServiceKey(name)] === key;
+        }
         return settings.key.apply(self) === key;
       };
 
@@ -77,5 +85,12 @@ module.exports = {
       this.__RadioService_setup_cache = this.RadioService_setup();
     }
     return this.__RadioService_setup_cache;
+  },
+  RadioService_callService: function(service, params){
+    var s = {};
+    s[callServiceKey(service)] = JSON.stringify(params);
+    this.setState(s, function(){
+      radio(service).broadcast(params);
+    });
   }
 };

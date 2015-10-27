@@ -28,3 +28,11 @@ service("Save", function(data, callback){
 }, function(){
   return 1;
 });
+
+///////////////////////////////////////////////////
+
+service("SaveData", function(data, callback){
+  setTimeout(function(){
+    callback(null, {saved: data});
+  }, 1000);
+});

@@ -115,6 +115,26 @@ var RadioServiceMixin = require("react-pubsub-via-radio.js/RadioServiceMixin");
 });
 ```
 
+### this.RadioService_callService(service, params)
+This is a convenience function for calling a service you want to then listen to.
+```js
+  ...
+  RadioService_setup: function(){
+    return {
+      "Some_service": {
+        key: "callService"
+      }
+    };
+  },
+  ...
+  someMethod: function(){
+    ...
+    this.RadioService_callService("Some_service", params)
+  }
+  ...
+```
+Under the hood this will json stringify `params` and use that as the key.
+
 ## Example
 ```sh
 $ git clone https://github.com/espeakers/react-pubsub-via-radio.js.git
