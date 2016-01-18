@@ -29,6 +29,9 @@ module.exports = {
   Radio_setup: function(){
     var self = this;
     var channels = {};
+    if(this.RadioService_Radio_setup){
+      channels = this.RadioService_Radio_setup();
+    }
     var updateState = this.RadioService_setServiceState;
 
     var s = this.__RadioService_setup();

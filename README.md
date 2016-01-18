@@ -103,6 +103,10 @@ var RadioServiceMixin = require("react-pubsub-via-radio.js/RadioServiceMixin");
     };
   },
   ...
+  RadioService_Radio_setup: function(){
+    //same as the Radio_setup method in RadioMixin
+  },
+  ...
   render: function(){
     var s = this.state.Some_service;
     //this will contain the following properties
